@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Usuario — GYM Tracker</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root{--bg:#0a0a0a;--surface:#141414;--surface-2:#1e1e1e;--border:#2a2a2a;--text:#e8e8e8;--text-muted:#888;--accent:#E8FF3A;--accent-dim:#E8FF3A22;--green:#4ade80;--red:#f87171;--blue:#60a5fa;--orange:#fb923c;--purple:#c084fc;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.7;padding:40px 20px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .container{max-width:800px;margin:0 auto;}
+
+  /* HEADER */
+  .doc-header{text-align:center;padding:60px 0 40px;border-bottom:1px solid var(--border);margin-bottom:50px;}
+  .doc-header .tag{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:20px;}
+  .doc-header h1{font-size:40px;font-weight:800;letter-spacing:-1px;margin-bottom:8px;}
+  .doc-header .accent{color:var(--accent);}
+  .doc-header .subtitle{color:var(--text-muted);font-size:16px;margin-bottom:6px;}
+  .doc-header .version{color:var(--text-muted);font-size:13px;font-family:'JetBrains Mono',monospace;}
+
+  /* SECTIONS */
+  .section{margin-bottom:50px;page-break-inside:avoid;}
+  .section-label{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:12px;}
+  .section h2{font-size:24px;font-weight:700;margin-bottom:16px;letter-spacing:-0.5px;}
+  .section h3{font-size:17px;font-weight:600;margin-bottom:8px;margin-top:20px;}
+  .section p{color:var(--text-muted);font-size:14px;margin-bottom:12px;}
+  .section p strong{color:var(--text);}
+
+  /* FEATURE CARDS */
+  .feature{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:14px;page-break-inside:avoid;}
+  .feature-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+  .feature-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;font-family:'JetBrains Mono',monospace;}
+  .feature h3{font-size:17px;font-weight:700;margin:0;}
+  .feature-sub{font-size:12px;color:var(--text-muted);margin-top:2px;}
+  .feature p{color:var(--text-muted);font-size:13px;margin-bottom:8px;}
+  .feature ul{list-style:none;margin:8px 0;}
+  .feature li{position:relative;padding-left:18px;color:var(--text-muted);font-size:13px;margin-bottom:6px;}
+  .feature li::before{content:'▸';position:absolute;left:0;color:var(--accent);font-weight:700;}
+  .feature li strong{color:var(--text);}
+
+  /* STEPS */
+  .steps{display:flex;flex-direction:column;gap:10px;margin:14px 0;}
+  .step{display:flex;align-items:flex-start;gap:12px;}
+  .step-num{width:28px;height:28px;border-radius:50%;background:var(--accent-dim);border:1px solid rgba(232,255,58,0.2);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--accent);flex-shrink:0;margin-top:2px;}
+  .step-text{font-size:13px;color:var(--text-muted);}
+  .step-text strong{color:var(--text);}
+
+  /* HIGHLIGHT */
+  .highlight{background:var(--accent-dim);border:1px solid #E8FF3A44;border-radius:12px;padding:20px 24px;margin:20px 0;}
+  .highlight h4{color:var(--accent);font-size:13px;font-weight:600;margin-bottom:6px;letter-spacing:0.5px;}
+  .highlight p{color:var(--text);font-size:13px;margin:0;}
+
+  /* TABLE */
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:13px;}
+  thead th{text-align:left;font-weight:600;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-muted);padding:10px 14px;border-bottom:1px solid var(--border);}
+  tbody td{padding:10px 14px;border-bottom:1px solid var(--border);color:var(--text-muted);}
+  tbody td:first-child{color:var(--text);font-weight:500;}
+  tbody tr:last-child td{border-bottom:none;}
+  .table-wrap{background:var(--surface);border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+
+  /* BADGES */
+  .badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px;}
+  .badge.accent{background:var(--accent-dim);color:var(--accent);}
+  .badge.green{background:#4ade8022;color:var(--green);}
+  .badge.blue{background:#60a5fa22;color:var(--blue);}
+  .badge.orange{background:#fb923c22;color:var(--orange);}
+  .badge.red{background:#f8717122;color:var(--red);}
+
+  /* ICON COLORS */
+  .ico-accent{background:var(--accent-dim);color:var(--accent);}
+  .ico-green{background:#4ade8022;color:var(--green);}
+  .ico-blue{background:#60a5fa22;color:var(--blue);}
+  .ico-orange{background:#fb923c22;color:var(--orange);}
+  .ico-purple{background:#c084fc22;color:var(--purple);}
+  .ico-red{background:#f8717122;color:var(--red);}
+
+  /* NAV PREVIEW */
+  .nav-preview{display:flex;gap:8px;justify-content:center;margin:20px 0;}
+  .nav-item{flex:1;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 10px;}
+  .nav-item .name{font-size:12px;font-weight:600;margin-top:6px;}
+  .nav-item .desc{font-size:10px;color:var(--text-muted);margin-top:4px;}
+  .nav-item.active{border-color:var(--accent);}
+  .nav-item.active .name{color:var(--accent);}
+
+  /* FOOTER */
+  .doc-footer{text-align:center;padding:40px 0 20px;border-top:1px solid var(--border);margin-top:50px;}
+  .doc-footer p{color:var(--text-muted);font-size:12px;}
+  .doc-footer .creator{font-size:14px;color:var(--text);font-weight:600;margin-bottom:4px;}
+
+  @media print{body{padding:20px;}.section{page-break-inside:avoid;}.doc-header{page-break-after:avoid;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HEADER -->
+  <div class="doc-header">
+    <div class="tag">Guía de Usuario</div>
+    <h1><span class="accent">GYM</span> Tracker</h1>
+    <div class="subtitle">Tu entrenamiento personalizado en tu bolsillo</div>
+    <div class="version">v57 · Abril 2026</div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="section">
+    <div class="section-label">01 — ¿Qué es?</div>
+    <h2>Tu entrenador personal gratuito</h2>
+    <p><strong>GYM Tracker</strong> es una app web que te crea una rutina de ejercicios personalizada según tu cuerpo, tus objetivos y tu experiencia. Registra tus entrenamientos, mide tu progreso y te ayuda a mejorar cada semana.</p>
+
+    <div class="highlight">
+      <h4>Lo que la hace diferente</h4>
+      <p>Adapta los ejercicios según tu edad, peso, altura, sexo, experiencia y objetivo. Un principiante de 50 años recibe ejercicios en máquinas guiadas. Una mujer de 25 años que quiere tonificar recibe hip thrust y Stairmaster. No es una rutina genérica — es tu rutina.</p>
+    </div>
+
+    <div class="nav-preview">
+      <div class="nav-item active"><div class="name">HOY</div><div class="desc">Tu entrenamiento del día</div></div>
+      <div class="nav-item"><div class="name">PROGRESO</div><div class="desc">Gráficas y PRs</div></div>
+      <div class="nav-item"><div class="name">HISTORIAL</div><div class="desc">Todas tus sesiones</div></div>
+      <div class="nav-item"><div class="name">PERFIL</div><div class="desc">Datos y rutina</div></div>
+    </div>
+  </div>
+
+  <!-- PRIMER USO -->
+  <div class="section">
+    <div class="section-label">02 — Primer Uso</div>
+    <h2>Cómo empezar</h2>
+    <p>Al abrir la app por primera vez aparece un <strong>wizard de configuración</strong> que te guía paso a paso.</p>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-accent">W</div>
+        <div><h3>Wizard de configuración</h3><div class="feature-sub">5 pasos para tu rutina personalizada</div></div>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text"><strong>Tus datos:</strong> Nombre, edad, sexo, altura y peso. Si no sabes alguno, déjalo vacío.</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text"><strong>¿Cómo quieres tu rutina?</strong> Tres opciones: que te la sugiramos, crearla tú mismo, o importar una existente.</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text"><strong>Tu nivel de actividad:</strong> De sedentario a muy activo. Esto calcula tus calorías y sugiere días de entrenamiento.</div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-text"><strong>Tu objetivo:</strong> Ganar músculo, fuerza, perder grasa o estar en forma. Los ejercicios se adaptan a tu meta.</div></div>
+        <div class="step"><div class="step-num">5</div><div class="step-text"><strong>Tus días:</strong> Elige qué días de la semana puedes entrenar (mínimo 3). Te recomendamos una cantidad basada en tu perfil.</div></div>
+      </div>
+      <div class="highlight">
+        <h4>Opciones del wizard</h4>
+        <p><strong>Sugiéreme una rutina:</strong> Te creamos una personalizada según todos tus datos.<br>
+        <strong>Crear la mía:</strong> Elige tus días y selecciona ejercicios del catálogo.<br>
+        <strong>Importar:</strong> Si ya tienes una rutina, cópiala en ChatGPT con nuestro prompt y te la convierte a JSON para importar.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOY -->
+  <div class="section">
+    <div class="section-label">03 — Vista HOY</div>
+    <h2>Tu entrenamiento del día</h2>
+    <p>La pantalla principal muestra los ejercicios que te tocan hoy según tu rutina.</p>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-accent">E</div>
+        <div><h3>Ejercicios del día</h3><div class="feature-sub">Toca cualquier ejercicio para registrarlo</div></div>
+      </div>
+      <p>Cada ejercicio muestra:</p>
+      <ul>
+        <li><strong>Nombre del ejercicio</strong> y grupo muscular</li>
+        <li><strong>Sugerencia de peso</strong> basada en tus últimas 3 sesiones (sobrecarga progresiva)</li>
+        <li><strong>Peso de la sesión anterior</strong> como referencia</li>
+        <li><strong>1RM estimado</strong> si ya tienes datos</li>
+        <li><strong>Check verde</strong> cuando lo completas</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-green">R</div>
+        <div><h3>Registrar ejercicio de pesas</h3><div class="feature-sub">Series, peso y repeticiones</div></div>
+      </div>
+      <p>Al tocar un ejercicio se abre el registro:</p>
+      <ul>
+        <li><strong>Tu promedio:</strong> Card con peso máx, reps, series y volumen de tus últimas sesiones</li>
+        <li><strong>Series de hoy:</strong> Agrega sets con peso × reps. Cambia entre kg y lb</li>
+        <li><strong>Calentamiento:</strong> Marca sets de calentamiento con el botón C/N (no cuentan en los cálculos)</li>
+        <li><strong>Resumen en vivo:</strong> Series, máximo, volumen y 1RM estimado se actualizan al escribir</li>
+        <li><strong>Timer de descanso:</strong> Se activa al guardar una serie (configurable en perfil)</li>
+        <li><strong>Notas:</strong> Botón de lápiz junto a GUARDAR — se guardan en tu historial</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-blue">C</div>
+        <div><h3>Registrar cardio</h3><div class="feature-sub">Tiempo, intensidad y calorías</div></div>
+      </div>
+      <ul>
+        <li><strong>Tiempo (minutos):</strong> Campo principal — lo que normalmente miras en la máquina</li>
+        <li><strong>Intensidad:</strong> Baja (verde), Media (naranja), Alta (rojo) — afecta el cálculo de calorías</li>
+        <li><strong>Distancia y calorías:</strong> Opcionales. Si no pones calorías, se calculan automáticamente según tu peso, el ejercicio y la intensidad (fórmula MET científica)</li>
+        <li><strong>Nota:</strong> Las calorías auto-calculadas se marcan con ~ (aproximación)</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-orange">O</div>
+        <div><h3>Reordenar ejercicios</h3><div class="feature-sub">Botón "Orden" flotante</div></div>
+      </div>
+      <p>El botón amarillo en la esquina inferior derecha activa el modo reordenar:</p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text">Toca el ejercicio que quieras mover (se selecciona con borde amarillo)</div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text">Toca la posición donde quieres colocarlo (borde punteado)</div></div>
+      </div>
+      <p>El orden se guarda automáticamente en tu rutina.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-purple">S</div>
+        <div><h3>Streaks (rachas)</h3><div class="feature-sub">En el header junto al día</div></div>
+      </div>
+      <ul>
+        <li><strong>Llama naranja:</strong> Racha de constancia — días consecutivos que has entrenado según tu rutina</li>
+        <li><strong>Rayo verde:</strong> Racha de progreso — sesiones consecutivas donde mejoraste algo</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROGRESO -->
+  <div class="section">
+    <div class="section-label">04 — Vista PROGRESO</div>
+    <h2>Mide tu evolución</h2>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-accent">P</div>
+        <div><h3>Resumen del período</h3><div class="feature-sub">Semana, 30 días, 3 meses o todo</div></div>
+      </div>
+      <ul>
+        <li><strong>Sesiones totales</strong> en el período</li>
+        <li><strong>Volumen total</strong> (kg movidos)</li>
+        <li><strong>Sets totales</strong> realizados</li>
+        <li><strong>PRs recientes:</strong> Tus mejores marcas con ranking</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-green">G</div>
+        <div><h3>Gráfica por ejercicio</h3><div class="feature-sub">Toca cualquier ejercicio de la lista</div></div>
+      </div>
+      <p><strong>Para ejercicios de pesas:</strong></p>
+      <ul>
+        <li><strong>Gráfica amarilla:</strong> Peso máximo por sesión con línea de tendencia azul</li>
+        <li><strong>Stats:</strong> Récord, 1RM estimado, volumen total, número de sesiones</li>
+        <li><strong>Detección de plateau:</strong> Si llevas varias sesiones sin progreso, te avisa y sugiere cambios</li>
+        <li><strong>Mejores sets por reps:</strong> Tu mejor marca para cada rango de repeticiones</li>
+        <li><strong>Últimas sesiones:</strong> Resumen de las 5 más recientes</li>
+        <li><strong>Badge PR:</strong> Si tu última sesión fue tu mejor marca, aparece el badge de trofeo</li>
+      </ul>
+      <p><strong>Para ejercicios de cardio:</strong></p>
+      <ul>
+        <li><strong>Gráfica celeste:</strong> Minutos por sesión con tendencia</li>
+        <li><strong>Stats:</strong> Tiempo máximo, total acumulado, distancia/calorías, sesiones</li>
+        <li><strong>Últimas sesiones:</strong> Con tiempo, intensidad, km y kcal</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- HISTORIAL -->
+  <div class="section">
+    <div class="section-label">05 — Vista HISTORIAL</div>
+    <h2>Todas tus sesiones</h2>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-blue">H</div>
+        <div><h3>Sesiones organizadas</h3><div class="feature-sub">Por mes y semana</div></div>
+      </div>
+      <ul>
+        <li><strong>Agrupadas por mes</strong> con conteo de sesiones</li>
+        <li><strong>Dentro de cada mes,</strong> organizadas por semana con conteo de días</li>
+        <li><strong>Cada sesión muestra:</strong> Día, fecha, duración, label de rutina</li>
+        <li><strong>Al desplegar:</strong> Ejercicios con sets en chips individuales (calentamiento con borde punteado)</li>
+        <li><strong>Stats por ejercicio:</strong> Peso promedio, volumen total y 1RM estimado</li>
+        <li><strong>Notas:</strong> Si escribiste una nota, aparece con borde accent</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PERFIL -->
+  <div class="section">
+    <div class="section-label">06 — Vista PERFIL</div>
+    <h2>Tu información y configuración</h2>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-accent">U</div>
+        <div><h3>Header de perfil</h3><div class="feature-sub">Resumen rápido de tu actividad</div></div>
+      </div>
+      <ul>
+        <li><strong>Peso actual</strong> (último registro)</li>
+        <li><strong>Sesiones totales</strong> completadas</li>
+        <li><strong>Ejercicios</strong> diferentes registrados</li>
+        <li><strong>Racha</strong> actual de constancia</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-green">W</div>
+        <div><h3>Registro de peso corporal</h3><div class="feature-sub">Con gráfica de evolución</div></div>
+      </div>
+      <ul>
+        <li>Escribe tu peso y toca <strong>+</strong> para registrar</li>
+        <li><strong>Gráfica</strong> de evolución con los últimos registros</li>
+        <li><strong>Historial</strong> con los 3 más recientes (botón "ver más" si hay más)</li>
+        <li>Puedes <strong>eliminar</strong> registros tocando la ×</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-blue">M</div>
+        <div><h3>Métricas de salud</h3><div class="feature-sub">Calculadas con tus datos</div></div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Métrica</th><th>Qué es</th></tr></thead>
+          <tbody>
+            <tr><td>IMC</td><td>Índice de Masa Corporal — relación peso/altura con barra de colores</td></tr>
+            <tr><td>Peso ideal</td><td>Rango calculado con 4 fórmulas (Devine, Robinson, Miller, Hamwi)</td></tr>
+            <tr><td>TMB</td><td>Tasa Metabólica Basal — calorías que quemas en reposo (Mifflin-St Jeor)</td></tr>
+            <tr><td>TDEE</td><td>Gasto energético diario total — TMB × nivel de actividad</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Nivel de actividad:</strong> 5 íconos que representan de sedentario a muy activo. Al tocar uno se recalculan TMB y TDEE.</p>
+      <div class="highlight">
+        <h4>Nota importante</h4>
+        <p>Todos los valores son aproximaciones orientativas. No sustituyen una valoración médica profesional.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-orange">R</div>
+        <div><h3>Mi Rutina</h3><div class="feature-sub">Configura tus días de entrenamiento</div></div>
+      </div>
+      <ul>
+        <li><strong>7 días de la semana</strong> con letra identificativa y label de rutina</li>
+        <li><strong>Switch de descanso:</strong> Activa/desactiva días de descanso con interruptor visual</li>
+        <li><strong>Ejercicios:</strong> Cada uno con número, nombre, grupo muscular coloreado y botón de eliminar</li>
+        <li><strong>Agregar ejercicios:</strong> Abre el catálogo completo organizado por zona (superior, inferior, core, cardio)</li>
+        <li><strong>Copiar de otro día:</strong> Para repetir rutinas fácilmente</li>
+        <li><strong>Generar nueva rutina:</strong> Relanza el wizard de configuración</li>
+      </ul>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-purple">D</div>
+        <div><h3>Datos personales</h3><div class="feature-sub">Nombre, edad, sexo, altura, peso</div></div>
+      </div>
+      <p>Estos datos se usan para calcular las métricas de salud y personalizar las sugerencias de ejercicios.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-accent">G</div>
+        <div><h3>Guía del Gym</h3><div class="feature-sub">15 términos explicados para principiantes</div></div>
+      </div>
+      <p>Modal con tarjetas expandibles organizadas en 4 categorías:</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Categoría</th><th>Términos</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge accent">Fuerza</span></td><td>1RM, PR, Peso máximo</td></tr>
+            <tr><td><span class="badge orange">Volumen</span></td><td>Volumen, Series, Reps, Calentamiento</td></tr>
+            <tr><td><span class="badge blue">Progreso</span></td><td>Sobrecarga progresiva, Plateau, Streak constancia, Streak progreso</td></tr>
+            <tr><td><span class="badge green">Cuerpo</span></td><td>IMC, Hipertrofia, Fuerza, Resistencia</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Cada término incluye nombre en español e inglés, descripción clara y ejemplo práctico.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-blue">A</div>
+        <div><h3>Sección App</h3><div class="feature-sub">Feedback, datos y más</div></div>
+      </div>
+      <ul>
+        <li><strong>Enviar feedback:</strong> Abre formulario de Google Forms para reportar bugs o sugerencias</li>
+        <li><strong>Exportar:</strong> Descarga todos tus datos como archivo JSON</li>
+        <li><strong>Importar:</strong> Restaura datos desde un archivo JSON</li>
+        <li><strong>Prompt para ChatGPT:</strong> Botón que copia un prompt con el formato exacto para convertir tu rutina escrita a JSON importable</li>
+        <li><strong>Instalar app:</strong> Botón para instalar la PWA en tu dispositivo</li>
+        <li><strong>Datos demo:</strong> Carga datos de ejemplo para probar la app</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PERSONALIZACIÓN -->
+  <div class="section">
+    <div class="section-label">07 — Personalización Inteligente</div>
+    <h2>Cómo se adapta a ti</h2>
+    <p>La app no da la misma rutina a todos. Usa <strong>todas</strong> las variables de tu perfil para personalizar.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Variable</th><th>Cómo afecta</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Sexo</strong></td><td>Mujeres: más glúteos/piernas, hip thrust como principal, Stairmaster como cardio. Hombres: más tren superior, equilibrio push/pull</td></tr>
+          <tr><td><strong>Edad</strong></td><td>Jóvenes: goblet squat. 45+: máquinas guiadas, menos impacto. 50+: prensa de pierna, press en máquina</td></tr>
+          <tr><td><strong>Peso/Altura</strong></td><td>BMI 30+: elíptica en vez de correr, prensa en vez de sentadilla. Altos (185cm+): máquinas por biomecánica</td></tr>
+          <tr><td><strong>Experiencia</strong></td><td>Principiante: toda la rutina en máquinas guiadas. Intermedio: mix libre/máquina. Avanzado: peso libre completo</td></tr>
+          <tr><td><strong>Objetivo</strong></td><td>Grasa: cardio en cada día. Fuerza: más compuestos, sin cardio. Músculo: aislamiento extra. General: core + cardio ligero</td></tr>
+          <tr><td><strong>Actividad</strong></td><td>Sedentario principiante: máximo 5 ejercicios, caminadora. Activo: rutinas más densas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Cardio adaptado por perfil</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Perfil</th><th>Cardio recomendado</th><th>Por qué</th></tr></thead>
+        <tbody>
+          <tr><td>Mujer</td><td>Stairmaster</td><td>Mayor activación de glúteos</td></tr>
+          <tr><td>Sobrepeso (BMI 30+)</td><td>Elíptica</td><td>Bajo impacto articular</td></tr>
+          <tr><td>BMI 35+</td><td>Bicicleta estática</td><td>Sin carga articular</td></tr>
+          <tr><td>Sedentario principiante</td><td>Caminadora</td><td>Inicio suave</td></tr>
+          <tr><td>Avanzado + fat loss</td><td>HIIT</td><td>Máxima quema en poco tiempo</td></tr>
+          <tr><td>Fuerza</td><td>Caminar</td><td>No interfiere con recuperación</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Calorías auto-calculadas</h3>
+    <p>Cuando registras cardio sin poner calorías, la app las calcula con la fórmula MET (Compendium of Physical Activities):</p>
+    <p><strong>Calorías/min = MET × peso(kg) × 3.5 ÷ 200</strong></p>
+    <p>Cada ejercicio tiene valores MET por intensidad (baja/media/alta). Es una aproximación científica, no un valor exacto.</p>
+  </div>
+
+  <!-- BASE DE DATOS -->
+  <div class="section">
+    <div class="section-label">08 — Catálogo de Ejercicios</div>
+    <h2>120+ ejercicios organizados</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Zona</th><th>Grupos</th><th>Ejemplos</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge accent">Tren Superior</span></td><td>Pecho, Espalda, Hombros, Bíceps, Tríceps</td><td>Press banca, jalón al pecho, press militar, curl, tríceps en polea, remo en máquina, contractor...</td></tr>
+          <tr><td><span class="badge green">Tren Inferior</span></td><td>Cuádriceps, Isquiotibiales, Glúteos, Pantorrillas</td><td>Sentadilla, hip thrust, prensa, curl femoral sentado, abductores, zancadas, hack squat...</td></tr>
+          <tr><td><span class="badge orange">Core</span></td><td>Abdominales</td><td>Plancha, crunch, elevación de piernas, russian twist, ab wheel, mountain climbers...</td></tr>
+          <tr><td><span class="badge blue">Cardio</span></td><td>Cardiovascular</td><td>Correr, elíptica, Stairmaster, bicicleta, remo, natación, HIIT, caminar, saltar cuerda...</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Incluye ejercicios con <strong>máquinas guiadas</strong> (press en máquina, hip thrust en máquina, curl femoral sentado, contractor de pecho, pulldown, etc.) y ejercicios con <strong>peso libre</strong> (barra, mancuernas, peso corporal).</p>
+  </div>
+
+  <!-- PWA -->
+  <div class="section">
+    <div class="section-label">09 — Instalación</div>
+    <h2>Úsala como app nativa</h2>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-accent">I</div>
+        <div><h3>Instalar en tu dispositivo</h3><div class="feature-sub">Funciona sin internet</div></div>
+      </div>
+      <p><strong>En iPhone/iPad:</strong></p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text">Abre la app en <strong>Safari</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text">Toca el botón de <strong>compartir</strong> (cuadrado con flecha)</div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-text">Selecciona <strong>"Añadir a pantalla de inicio"</strong></div></div>
+      </div>
+      <p><strong>En Android:</strong></p>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-text">Abre la app en <strong>Chrome</strong></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-text">Toca el banner de <strong>"Instalar app"</strong> o el botón en Perfil → App</div></div>
+      </div>
+      <p>Una vez instalada, funciona <strong>sin internet</strong>. Tus datos se guardan en el dispositivo.</p>
+    </div>
+  </div>
+
+  <!-- BACKUP -->
+  <div class="section">
+    <div class="section-label">10 — Tus Datos</div>
+    <h2>Exportar, importar y proteger</h2>
+
+    <div class="highlight">
+      <h4>Importante</h4>
+      <p>Tus datos se guardan en el navegador (localStorage). Si borras los datos del navegador o desinstalas la app, se pierden. <strong>Haz backup regularmente</strong> desde Perfil → App → Exportar.</p>
+    </div>
+
+    <div class="feature">
+      <div class="feature-header">
+        <div class="feature-ico ico-green">B</div>
+        <div><h3>Backup y restauración</h3></div>
+      </div>
+      <ul>
+        <li><strong>Exportar:</strong> Descarga un archivo JSON con toda tu rutina, sesiones, perfil y registros de peso</li>
+        <li><strong>Importar:</strong> Restaura desde un archivo JSON previamente exportado</li>
+        <li><strong>Importar rutina externa:</strong> Usa el botón "COPIAR PROMPT", pégalo en ChatGPT con tu rutina escrita, y te devuelve un JSON listo para importar</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="doc-footer">
+    <div class="creator">Creado por Jean Carlos</div>
+    <p>TikTok & Instagram: @naej_lil</p>
+    <p style="margin-top:12px;font-size:11px;color:#555;">GYM Tracker v57 · Abril 2026</p>
+  </div>
+
+</div>
+</body>
+</html>
